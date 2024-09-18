@@ -18,12 +18,9 @@ namespace _2048
         const int SIZE = 120;
         const int ANIMATION_INTERVAL = 100;
 
-        private static Color RGBtoColor(int rgb)
-        {
-            return Color.FromArgb(255, (rgb >> 16) & 0xff, (rgb >> 8) & 0xff, rgb & 0xff);
-        }
+        private static Color RGBtoColor(int rgb) => Color.FromArgb(255, (rgb >> 16) & 0xff, (rgb >> 8) & 0xff, rgb & 0xff);
 
-                                                                            //2                     4                      8                    16                      32                      64                          128                     256                         512                     1024                    2048                        4096
+        //2                     4                      8                    16                      32                      64                          128                     256                         512                     1024                    2048                        4096
         private static readonly Color[] COLORS_FRONT = new Color[] { RGBtoColor(0x776E65), RGBtoColor(0x776E65), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF9F6F2), RGBtoColor(0xF8F5F2) };
         private static readonly Color[] COLORS_BACK = new Color[] { RGBtoColor(0xEEE4DA), RGBtoColor(0xEEE1C9), RGBtoColor(0xF3B27A), RGBtoColor(0xF69664), RGBtoColor(0xF77C5F), RGBtoColor(0xF7603B), RGBtoColor(0xEDD073), RGBtoColor(0xEDCC63), RGBtoColor(0xEDC950), RGBtoColor(0xEDC53F), RGBtoColor(0xEDC53F), RGBtoColor(0x3C3A32) };
 
@@ -59,10 +56,10 @@ namespace _2048
 
         private bool animating;
         private int tickCounter;
-        private Label[,] labels;
-        private Logic2048 logic;
+        private readonly Label[,] labels;
+        private readonly Logic2048 logic;
 
-        private List<MovingLabel> movingLabels;
+        private readonly List<MovingLabel> movingLabels;
 
         public frm2048()
         {
@@ -94,10 +91,7 @@ namespace _2048
                 }
         }
 
-        private void LogicSpawn(Entry entry, int row, int col)
-        {
-            CreateLabel(entry.Number, row, col);
-        }
+        private void LogicSpawn(Entry entry, int row, int col) => CreateLabel(entry.Number, row, col);
 
         private void LogicMove(Entry entry, int srcRow, int srcCol, int dstRow, int dstCol)
         {
@@ -131,10 +125,7 @@ namespace _2048
             
         }
 
-        private Point RowColToXY(int row, int col)
-        {
-            return new Point(PADDING + (SIZE + PADDING) * col, PADDING + (SIZE + PADDING) * row);
-        }
+        private Point RowColToXY(int row, int col) => new Point(PADDING + (SIZE + PADDING) * col, PADDING + (SIZE + PADDING) * row);
 
         private int Log2(int x)
         {
@@ -165,15 +156,17 @@ namespace _2048
 
         private Label CreateLabel(int value, int row, int col)
         {
-            Label label = new Label();
-            label.Text = value.ToString();
-            label.Font = new Font("Arial", 21.75F, FontStyle.Bold);
-            label.Size = new Size(SIZE, SIZE);
-            label.ForeColor = NumberToForecolor(value);
-            label.BackColor = NumberToBackcolor(value);
-            label.TextAlign = ContentAlignment.MiddleCenter;
-            label.Location = RowColToXY(row, col);
-            label.Parent = this;
+            var label = new Label
+            {
+                Text = value.ToString(),
+                Font = new Font("Arial", 21.75F, FontStyle.Bold),
+                Size = new Size(SIZE, SIZE),
+                ForeColor = NumberToForecolor(value),
+                BackColor = NumberToBackcolor(value),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = RowColToXY(row, col),
+                Parent = this
+            };
 
             labels[row, col] = label;
 
@@ -208,7 +201,6 @@ namespace _2048
                     animating = true;
                     logic.MoveRight();
                     break;
-
 
                 case Keys.Down:
                     animating = true;

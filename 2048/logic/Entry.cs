@@ -8,33 +8,11 @@ namespace logic
 {
     public class Entry
     {
-        private int row;
-        private int col;
-        private int number;
+        public int Row { get; }
 
-        public int Row
-        {
-            get
-            {
-                return row;
-            }
-        }
+        public int Col { get; }
 
-        public int Col
-        {
-            get
-            {
-                return col;
-            }
-        }
-
-        public int Number
-        {
-            get
-            {
-                return number;
-            }
-        }
+        public int Number { get; }
 
         public Entry() : this(0, -1, -1) { }
 
@@ -42,9 +20,9 @@ namespace logic
 
         public Entry(int row, int col, int number)
         {
-            this.row = row;
-            this.col = col;
-            this.number = number;
+            this.Row = row;
+            this.Col = col;
+            this.Number = number;
         }
     }
 }

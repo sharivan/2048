@@ -17,11 +17,11 @@ namespace logic
         public delegate void MoveEndEvent(bool valid);
         public delegate void GameOverEvent();
 
-        private int rows;
-        private int cols;
+        private readonly int rows;
+        private readonly int cols;
 
-        private Random rng;
-        private Entry[,] entries;
+        private readonly Random rng;
+        private readonly Entry[,] entries;
 
         public event ResetEvent OnReset;
         public event SpawnEvent OnSpawn;
@@ -44,10 +44,7 @@ namespace logic
             entries = new Entry[rows, cols];
         }
 
-        private bool IsEmpty(int row, int col)
-        {
-            return entries[row, col] == null;
-        }
+        private bool IsEmpty(int row, int col) => entries[row, col] == null;
 
         private bool IsFull()
         {
@@ -84,7 +81,7 @@ namespace logic
                 }
             }
 
-            Entry result = new Entry(row, col, value);
+            var result = new Entry(row, col, value);
             entries[row, col] = result;
 
             OnSpawn(result, row, col);
@@ -92,10 +89,7 @@ namespace logic
             return result;
         }
 
-        private bool IsValidMove(Direction direction)
-        {
-            return false;
-        }
+        private bool IsValidMove(Direction direction) => false;
 
         private void Clear()
         {
